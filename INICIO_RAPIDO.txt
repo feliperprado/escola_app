@@ -1,0 +1,130 @@
+# ⚡ INÍCIO RÁPIDO EM 3 PASSOS
+
+## Passo 1️⃣ - Instalar Dependências (Uma única vez)
+
+```bash
+cd D:\PyCharm_Projetos\escola_app
+pip install -r requirements.txt
+```
+
+Isso instala apenas:
+- Flask (framework web)
+- Flask-SQLAlchemy (banco de dados)
+
+**Tempo:** ~30 segundos
+
+---
+
+## Passo 2️⃣ - Popular o Banco (Uma única vez)
+
+```bash
+python popular_banco.py
+```
+
+Cria:
+- Tabelas do banco de dados
+- 4 usuários de teste
+- 5 alunos de teste
+
+**Tempo:** ~2 segundos
+
+---
+
+## Passo 3️⃣ - Executar a Aplicação
+
+```bash
+python app.py
+```
+
+Output esperado:
+```
+✓ Banco de dados SQLite configurado
+✓ Tabelas de banco de dados criadas
+ * Running on http://127.0.0.1:5000
+```
+
+**Então acesse:** http://localhost:5000
+
+---
+
+## 🔐 Faça Login
+
+### Opção A - Como PROFESSOR
+```
+Usuário: professor1
+Senha: 123456
+```
+
+Você terá acesso a:
+- Dashboard com resumo
+- Registrar frequência
+- Lançar conteúdo
+- Registrar atividades
+- Registrar leitura
+- Gerenciar atestados
+- Ver relatórios
+
+### Opção B - Como PAI/RESPONSÁVEL
+```
+Usuário: pai_joao
+Senha: 123456
+```
+
+Você terá acesso a:
+- Dashboard com resumo do filho
+- Visualizar frequência
+- Ver atividades
+- Consultar conteúdo
+- Enviar atestados
+- Acompanhar status
+
+---
+
+## 🎯 Pronto!
+
+Agora você pode:
+
+✅ Registrar presença/ausência
+✅ Lançar conteúdo de aulas
+✅ Controlar tarefas e atividades
+✅ Acompanhar leitura
+✅ Gerenciar atestados
+✅ Visualizar relatórios
+
+---
+
+## 📱 Acessar do Celular
+
+1. Descubra seu IP (Windows):
+   ```bash
+   ipconfig
+   ```
+   Procure por "IPv4 Address" → ex: `192.168.x.x`
+
+2. No celular, acesse:
+   ```
+   http://192.168.x.x:5000
+   ```
+
+---
+
+## ⏹️ Parar a Aplicação
+
+Pressione `CTRL+C` no terminal onde rodou `python app.py`
+
+---
+
+## 🔄 Próximas Vezes
+
+Para executar novamente, basta:
+
+```bash
+cd D:\PyCharm_Projetos\escola_app
+python app.py
+```
+
+Seus dados já estão salvos no `escola.db` ✅
+
+---
+
+**Simples, rápido e sem complicações! 🚀**

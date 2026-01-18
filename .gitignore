@@ -1,0 +1,67 @@
+# Ambiente Virtual
+venv/
+env/
+ENV/
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Credenciais (IMPORTANTE!)
+credentials.json
+*.json
+!requirements.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Base de dados local (se usar)
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Arquivos temporários
+temp/
+tmp/
+*.tmp
+
+# Arquivos do SO
+.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente
+.env
+.env.local
