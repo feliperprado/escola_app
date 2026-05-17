@@ -167,3 +167,33 @@ Este projeto é de código aberto e pode ser usado livremente para fins educacio
 ---
 
 **Desenvolvido com ❤️ para educadores**
+
+---
+
+## Protótipo Web HTML, CSS e JavaScript do SOE Rosa Romita
+
+Também há uma versão front-end estática criada em `index.html`, `styles.css` e `script.js` para demonstrar o Serviço de Orientação Escolar da escola Rosa Romita sem depender de backend durante a avaliação inicial.
+
+### Como abrir
+
+1. Abra `index.html` diretamente no navegador; ou
+2. Execute um servidor local simples:
+
+```bash
+python3 -m http.server 8000
+```
+
+Depois acesse `http://localhost:8000`.
+
+### Contas de demonstração
+
+Todas usam a senha `123456`:
+
+- `representante@rosaromita.edu.br` — aluno representante com acesso restrito à turma 7A.
+- `responsavel@rosaromita.edu.br` — responsável com acesso apenas aos filhos vinculados.
+- `professor@rosaromita.edu.br` — professor com acesso às turmas 7A e 8B, documentos e contatos.
+- `coordenacao@rosaromita.edu.br` — coordenador SOE com acesso administrativo completo.
+
+### Observação de produção
+
+O protótipo usa `localStorage` para simular autenticação, permissões, anexos e cadastros. Para produção, substitua essa camada por Firebase Auth + Firestore/Storage Rules ou Node.js + MongoDB com criptografia, auditoria e políticas de acesso aderentes à LGPD.
