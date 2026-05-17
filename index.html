@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOE Rosa Romita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand__icon">RR</div>
+        <div>
+          <strong>SOE Rosa Romita</strong>
+          <span>Orientação Escolar</span>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="Menu principal">
+        <button class="menu__item active" data-view="dashboard">Início</button>
+        <button class="menu__item" data-view="rotina">Rotina da turma</button>
+        <button class="menu__item" data-view="responsavel">Área do responsável</button>
+        <button class="menu__item" data-view="professor">Professor</button>
+        <button class="menu__item" data-view="coordenacao">Coordenação SOE</button>
+        <button class="menu__item" data-view="importacao">Importação</button>
+        <button class="menu__item" data-view="privacidade">LGPD</button>
+      </nav>
+
+      <div class="user-card" id="sessionCard">
+        <span class="status-dot"></span>
+        <div>
+          <strong id="sessionName">Visitante</strong>
+          <small id="sessionRole">Faça login</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <button class="icon-button" id="toggleMenu" aria-label="Abrir menu">☰</button>
+        <div>
+          <p class="eyebrow">Aplicativo web escolar</p>
+          <h1 id="pageTitle">Serviço de Orientação Escolar</h1>
+        </div>
+        <button class="button button--ghost hidden" id="logoutButton">Sair</button>
+      </header>
+
+      <section class="login-panel" id="loginPanel">
+        <div class="hero-card">
+          <p class="eyebrow">Acesso seguro por perfil</p>
+          <h2>Gestão diária para representantes, responsáveis, professores e coordenação.</h2>
+          <p>Protótipo funcional em HTML, CSS e JavaScript com dados locais, permissões por tipo de usuário, importação CSV/Google Sheets e comunicação via WhatsApp/telefone.</p>
+          <div class="hero-grid">
+            <span>Frequência</span>
+            <span>Conteúdo</span>
+            <span>Atestados</span>
+            <span>Permissões</span>
+          </div>
+        </div>
+
+        <form class="login-card" id="loginForm">
+          <h2>Entrar no SOE</h2>
+          <label>
+            E-mail
+            <input type="email" id="email" autocomplete="email" required placeholder="coordenacao@rosaromita.edu.br" />
+          </label>
+          <label>
+            Senha
+            <input type="password" id="password" autocomplete="current-password" required placeholder="Digite sua senha" />
+          </label>
+          <button class="button" type="submit">Acessar</button>
+          <p class="hint">Use as contas de demonstração abaixo. Em produção, conecte Firebase Auth ou backend Node.js + MongoDB.</p>
+          <div class="demo-users" id="demoUsers"></div>
+        </form>
+      </section>
+
+      <section class="workspace hidden" id="workspace">
+        <div class="notice" id="accessNotice"></div>
+
+        <section class="view active" id="view-dashboard">
+          <div class="cards" id="metricCards"></div>
+          <div class="panel two-columns">
+            <div>
+              <p class="eyebrow">Resumo diário</p>
+              <h2>Visão educacional integrada</h2>
+              <p>O painel mostra apenas os dados permitidos para o perfil autenticado. Representantes veem a própria sala, responsáveis veem seus filhos, professores veem suas turmas e a coordenação tem visão completa.</p>
+            </div>
+            <div class="timeline" id="activityTimeline"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-rotina">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Aluno representante</p>
+              <h2>Registro da rotina da sala</h2>
+            </div>
+            <span class="pill" id="classScopePill">Turma restrita</span>
+          </div>
+
+          <form class="panel form-grid" id="routineForm">
+            <label>Data<input type="date" id="routineDate" required /></label>
+            <label>Turma<select id="routineClass" required></select></label>
+            <label class="full">Conteúdo das aulas<textarea id="lessonContent" required placeholder="Ex.: Matemática - frações; Português - interpretação de texto"></textarea></label>
+            <label class="full">Tarefas e trabalhos<textarea id="homework" required placeholder="Ex.: Lista página 42 para amanhã"></textarea></label>
+            <label class="full">Leitura do dia<textarea id="dailyReading" placeholder="Campo livre para registrar leitura, livro, páginas ou observações"></textarea></label>
+            <div class="full attendance-box" id="attendanceList"></div>
+            <button class="button" type="submit">Salvar rotina da turma</button>
+          </form>
+        </section>
+
+        <section class="view" id="view-responsavel">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Responsável do aluno</p>
+              <h2>Acompanhamento e documentos</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Informações do(s) filho(s)</h3>
+              <div id="childrenData"></div>
+            </div>
+            <form class="panel form-grid" id="documentForm">
+              <h3 class="full">Enviar atestado/justificativa</h3>
+              <label>Aluno<select id="documentStudent" required></select></label>
+              <label>Data da falta<input type="date" id="absenceDate" required /></label>
+              <label>Tipo<select id="documentType"><option>Atestado médico</option><option>Justificativa de falta</option></select></label>
+              <label class="full">Observação<textarea id="documentNote" placeholder="Descreva o motivo ou observações relevantes"></textarea></label>
+              <label class="full">Arquivo<input type="file" id="documentFile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" /></label>
+              <button class="button" type="submit">Anexar documento</button>
+              <p class="hint full">Documentos ficam visíveis somente para professores das turmas relacionadas e coordenação SOE.</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="view" id="view-professor">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Professor</p>
+              <h2>Turmas, entregas e comunicação</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="panel">
+              <h3>Registros dos representantes</h3>
+              <div id="teacherRoutines"></div>
+            </div>
+            <form class="panel form-grid" id="deliveryForm">
+              <h3 class="full">Lançar entrega por aluno</h3>
+              <label>Aluno<select id="deliveryStudent" required></select></label>
+              <label>Atividade<input id="deliveryTitle" required placeholder="Nome da tarefa/trabalho" /></label>
+              <label>Status<select id="deliveryStatus"><option>Entregue</option><option>Pendente</option><option>Incompleto</option></select></label>
+              <label>Data<input type="date" id="deliveryDate" required /></label>
+              <button class="button" type="submit">Salvar entrega</button>
+            </form>
+          </div>
+          <div class="panel">
+            <h3>Atestados, justificativas e contatos</h3>
+            <div class="table-wrap"><table id="teacherDocumentsTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-coordenacao">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Coordenador SOE</p>
+              <h2>Administração completa</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <form class="panel form-grid" id="studentForm">
+              <h3 class="full">Inserir/editar aluno</h3>
+              <label>Nome<input id="studentName" required /></label>
+              <label>Turma<input id="studentClass" required placeholder="Ex.: 7º A" /></label>
+              <label>Responsável<input id="guardianName" required /></label>
+              <label>Telefone<input id="guardianPhone" required placeholder="11999999999" /></label>
+              <label class="full">E-mail do responsável<input type="email" id="guardianEmail" required /></label>
+              <button class="button" type="submit">Salvar aluno</button>
+            </form>
+            <form class="panel form-grid" id="userForm">
+              <h3 class="full">Inserir/editar usuário e permissões</h3>
+              <label>Nome<input id="userName" required /></label>
+              <label>E-mail<input type="email" id="userEmail" required /></label>
+              <label>Perfil<select id="userRole"><option value="representante">Aluno representante</option><option value="responsavel">Responsável</option><option value="professor">Professor</option><option value="coordenador">Coordenador SOE</option></select></label>
+              <label>Senha<input id="userPassword" required /></label>
+              <label class="full">Turmas/Alunos associados<input id="userScope" placeholder="Ex.: 7A,8B ou ids de alunos separados por vírgula" /></label>
+              <button class="button" type="submit">Salvar usuário</button>
+            </form>
+          </div>
+          <div class="panel">
+            <h3>Dias exatos de faltas justificadas/atestados</h3>
+            <div class="table-wrap"><table id="adminAbsencesTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-importacao">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Google Planilhas / CSV</p>
+              <h2>Importar cadastros automaticamente</h2>
+            </div>
+          </div>
+          <div class="grid-2">
+            <form class="panel form-grid" id="csvForm">
+              <h3 class="full">Importar CSV</h3>
+              <p class="hint full">Colunas aceitas: nome,turma,responsavel,email,telefone,tipo,senha,escopo</p>
+              <label class="full">Arquivo CSV<input type="file" id="csvFile" accept=".csv" required /></label>
+              <button class="button" type="submit">Processar CSV</button>
+            </form>
+            <form class="panel form-grid" id="sheetsForm">
+              <h3 class="full">Integração direta com Google Sheets</h3>
+              <p class="hint full">Publique a planilha como CSV ou use um endpoint do Apps Script retornando CSV/JSON.</p>
+              <label class="full">URL pública CSV/Apps Script<input type="url" id="sheetsUrl" placeholder="https://docs.google.com/spreadsheets/.../pub?output=csv" /></label>
+              <button class="button" type="submit">Ler planilha</button>
+            </form>
+          </div>
+          <div class="panel">
+            <h3>Prévia dos dados cadastrados</h3>
+            <div class="table-wrap"><table id="importPreviewTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-privacidade">
+          <div class="panel privacy">
+            <p class="eyebrow">Segurança e privacidade</p>
+            <h2>Princípios LGPD aplicados no protótipo</h2>
+            <ul>
+              <li>Controle de acesso por perfil, turma e vínculo familiar.</li>
+              <li>Documentos de saúde/justificativas ocultos para responsáveis não vinculados e alunos representantes.</li>
+              <li>Comunicação por telefone/WhatsApp apenas para professores e coordenação autorizados.</li>
+              <li>Indicação de migração para Firebase Auth, Firestore rules, Storage rules e trilhas de auditoria em produção.</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
